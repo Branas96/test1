@@ -1,0 +1,19 @@
+<h1> Reset Your Password </h1>
+
+<%= form_with model: @user, url: password_reset_edit_path(token: params[:token]), local:true do |form| %>
+    
+
+    <div class="mb-3">
+        <%= form.label :password %>
+        <%= form.password_field :password , class: "form-control", placeholder: "password", autocomplete: "new-password" %>
+    </div>
+
+    <div class="mb-3">
+        <%= form.label :password_confirmation %>
+        <%= form.password_field :password_confirmation , class: "form-control", placeholder:"password", autocomplete: "new-password" %>
+    </div>
+
+    <div class="mb-3">
+        <%= form.submit "Reset Password", class: "btn btn-primary", data: { disable_with: false } %>
+    </div>
+<% end %>
