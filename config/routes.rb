@@ -16,7 +16,9 @@ Rails.application.routes.draw do
     post "password/reset", to: "password_resets#create"
 
     get "password/reset/edit", to: "password_resets#edit"
-    post "password/reset/edit", to: "password_resets#update"
+    patch "password/reset/edit", to: "password_resets#update"
+
+    get "auth/twitter/callback", to: "omniauth_callbacks#twitter"
 
     root to: "main#index"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.htmls

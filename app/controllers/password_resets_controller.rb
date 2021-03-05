@@ -1,6 +1,5 @@
 class PasswordResetsController < ApplicationController
-    def def new
-       @user = User.new
+    def new
     end
     
     def create
@@ -16,15 +15,15 @@ class PasswordResetsController < ApplicationController
     end
     
     def edit
-      @user = User.find_by(email: params[:email])
+      @user = User.find_signed!(params[:token], purpose: "password_reset")
     rescue ActiveSupport::MessageVerifier::InvalidSignature
       redirect_to sign_in_path, alert: "Your Token has Expired!"
     end
 
     def update 
-      @user = User.find_by(email: params[:email])
+      @user = User.find_signed!(params[:token], purpose: "password_reset")
       if @user.update(password_params)
-        redirect_to sign_in_path, alert: "Your Password was reset Successfully!!. Please Sign In."
+        redirect_to sign_in_path, notice: "Your Password was reset Successfully!!. Please Sign In."
       else
         render :edit
       end
@@ -35,4 +34,5 @@ class PasswordResetsController < ApplicationController
     def password_params
         params.require(:user).permit(:password, :password_confirmation)
     end
+
 end
